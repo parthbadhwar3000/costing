@@ -46,49 +46,19 @@
   <div class="container">
     <h2>Predict Sheet Cost (ML Model)</h2>
 
-    <!-- ✅ Correctly labeled and functional inputs -->
-    <label for="length">Length(in mm):</label>
-    <input type="number" id="length" placeholder="Enter Length in mm" required>
+    <form action="http://127.0.0.1:5003/predictdata" method="POST">
+      <label for="length">Length (in mm):</label>
+      <input type="number" id="length" name="Length(in mm)" placeholder="Enter Length in mm" required>
 
-    <label for="width">Width (in mm):</label>
-    <input type="number" id="width" placeholder="Enter Width in mm" required>
+      <label for="width">Width (in mm):</label>
+      <input type="number" id="width" name="Width (in mm)" placeholder="Enter Width in mm" required>
 
-    <button onclick="predictCost(event)">Submit</button>
+      <button type="submit">Submit</button>
+    </form>
 
-    <p id="result"></p>
+    {% if results %}
+      <p id="result">Predicted Cost: ₹{{ results }}</p>
+    {% endif %}
   </div>
-
-  <script>
-    async function predictCost(event) {
-      event.preventDefault();
-
-      const length = parseFloat(document.getElementById("length").value);
-      const width = parseFloat(document.getElementById("width").value);
-
-      if (isNaN(length) || isNaN(width) || length <= 0 || width <= 0) {
-        document.getElementById("result").innerText = "Please enter valid positive numbers.";
-        return;
-      }
-
-      try {
-        const response = await fetch('http://127.0.0.1:5003/predictdata', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ length, width })
-        });
-
-        const data = await response.json();
-
-        if (data.predicted_cost !== undefined) {
-          document.getElementById("result").innerText = `Predicted Cost: ₹${data.predicted_cost}`;
-        } else {
-          document.getElementById("result").innerText = `Error: ${data.error || 'Prediction failed'}`;
-        }
-      } catch (error) {
-        document.getElementById("result").innerText = "Error: Could not connect to backend.";
-        console.error("Fetch error:", error);
-      }
-    }
-  </script>
 </body>
 </html>
