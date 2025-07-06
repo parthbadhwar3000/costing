@@ -3,6 +3,7 @@ import sys
 from dataclasses import dataclass
 from sklearn.metrics import r2_score
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.tree import DecisionTreeRegressor
 
 from src.exception import CustomException
 from src.logger import logging
@@ -28,7 +29,8 @@ class ModelTrainer:
                 test_array[:,-1]
             )
             models={
-                "RandomForest":RandomForestRegressor(n_estimators=200,min_samples_split=2,max_features=8,max_depth=None)
+                "RandomForest":RandomForestRegressor(n_estimators=200,min_samples_split=2,max_features=8,max_depth=None),
+                "DecisionTree":DecisionTreeRegressor()
             }
 
             model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,models=models)
