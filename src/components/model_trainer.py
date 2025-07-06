@@ -29,8 +29,7 @@ class ModelTrainer:
                 test_array[:,-1]
             )
             models={
-                "RandomForest":RandomForestRegressor(n_estimators=200,min_samples_split=2,max_features=8,max_depth=None),
-                "DecisionTree":DecisionTreeRegressor()
+                "RandomForest":RandomForestRegressor(n_estimators=200,min_samples_split=2,max_features=8,max_depth=None)
             }
 
             model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,models=models)
