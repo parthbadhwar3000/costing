@@ -2,11 +2,11 @@ pandas
 numpy
 seaborn
 matplotlib
-scikit-learn
+scikit-learn==1.4.2
 catboost
 xgboost
 dill
-flask
+Flask
 flask-cors
 gunicorn
 -e .
